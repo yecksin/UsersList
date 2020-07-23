@@ -1,0 +1,139 @@
+<div class="container-user-list" style="padding:  0 2rem 0 2rem;">
+   
+
+    <h2 class="center-align">Users List</h2>
+
+    <ul class="collection ">
+
+        
+
+        <li class="collection-item" style="padding: 0;" *ngFor="let user of users; let i = index">
+
+            <a class="waves-effect waves-light btn" style="position: absolute;">{{i+1}}</a>
+
+            <a *ngIf="user.editActive" class="waves-effect waves-light red btn" 
+            style="
+            position: absolute;
+            left: 100%;
+            transform: translateX(-100%);
+            "><i class="material-icons">delete</i></a>
+            
+
+
+
+            <div class="row" style="margin-bottom: 0 !important; padding-bottom: 0 !important;">
+
+                <div *ngIf="!user.editActive">
+                <div class="col s9 " style="padding-top: .5rem; padding-bottom: .5rem;">
+                    <p style="margin-left: 3rem; " >{{user.firstName == '' ? 'unnamed': user.firstName }} {{user.Lastname}}</p>
+                </div>
+
+                <div class="col s3" style="padding-top: .5rem; padding-bottom: .5rem;">
+                    <a class="waves-effect waves-light btn btn-center yellow darken-2" (click)="user.editActive = !user.editActive; closeAll(i)"><i
+                            class="material-icons left">edit</i>Edit</a>
+                </div>
+            </div>
+
+                <div *ngIf="user.editActive" class="col s12 animate__animated animate__fadeIn">
+                  
+                    <div class="row" style="margin-top: 2rem;">
+                        <h3 class="center-align">{{user.firstName == '' ? 'unnamed': user.firstName}} {{user.Lastname}}</h3>
+                        <div style="padding-left: 30%; padding-right: 30%">
+                            <hr style="border-color: aqua;">
+                        </div>
+                        
+                        <form class="col s12">
+
+                            <div class="container">
+
+                                <!-- FORM FORM  FORM FORM  FORM FORM  FORM FORM -->
+                               
+                                <div class="row">
+    
+                                    <div class="input-field col s6">
+                                        <input [ngModel]="userAux.firstName" (ngModelChange)="updateUser(i)" name="first_name" id="first_name" type="text" class="validate">
+                                        <label for="first_name">First Name</label>
+                                    </div>
+    
+                                    <div class="input-field col s6">
+                                        <input id="last_name" type="text" class="validate">
+                                        <label for="last_name">Last Name</label>
+                                    </div>
+    
+                                    <div class="input-field col s6">
+                                        <input id="email" type="email" class="validate">
+                                        <label for="email">Email</label>
+                                    </div>
+    
+                                    <div class="input-field col s6">
+                                        <input id="username" type="text" class="validate">
+                                        <label for="username">Username</label>
+                                    </div>
+    
+                                    <div class="col s6">
+                                        <label >User role(s)</label>
+                                        <p style="margin-bottom: 0rem !important; margin-top: 0rem;">
+                                            <label>
+                                                <input type="checkbox" />
+                                                <span>Red</span>
+                                            </label>
+                                        </p>
+    
+                                        <p style="margin-bottom: 0rem !important; margin-top: 0rem;">
+                                            <label>
+                                                <input type="checkbox" />
+                                                <span>Red</span>
+                                            </label>
+                                        </p>
+    
+                                        <p style="margin-bottom: 0rem !important; margin-top: 0rem;">
+                                            <label>
+                                                <input type="checkbox" />
+                                                <span>Red</span>
+                                            </label>
+                                        </p>
+                                    </div>
+    
+                                    <div class="col s6">
+                                        <label >User active(s)</label>
+                                        <div class="switch">
+                                            <label>
+                                                Yes
+                                                <input type="checkbox">
+                                                <span class="lever"></span>
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+    
+    
+    
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <a class="waves-effect waves-light btn " style="position: relative; left: 50%; transform: translateX(-50%);" (click)="user.editActive = !user.editActive">Close</a>
+                </div>
+
+            </div>
+            <!-- <a class="waves-effect waves-light btn" style="position: absolute !important;" style="top: 100%;">1</a> -->
+            <!-- <div>
+            <span style="font-size: 2rem;">{{user.firstName}} {{user.Lastname}}</span>  <a  class="waves-effect waves-light btn btn-center" ><i class="material-icons left">edit</i>Edit</a>
+        </div> -->
+            <!-- <h1>Hola</h1> -->
+
+        </li>
+
+    </ul>
+
+    <a (click)="pushUser()" style="
+    position: relative;
+    left: 100%;
+    transform: translateX(-100%);" class="waves-effect waves-light btn-large"><i class="material-icons left">add</i>Add New User</a>
+
+
+
+
+
+</div>
