@@ -88,6 +88,8 @@ export class AppComponent {
     console.log("Hello");
   }
 
+  // npm install firebase @angular/fire
+
 }
 
 
