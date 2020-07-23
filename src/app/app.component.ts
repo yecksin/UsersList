@@ -9,8 +9,8 @@ declare var $:any;
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Users List';
-  
+  title = 'UL';
+  ListIsLoad = false;
   users: User[];
 
   userAux: User = {
@@ -18,7 +18,9 @@ export class AppComponent {
     Lastname: '',
     email: '',
     username: '',
-    userRol: '',
+    userRol1: '',
+    userRol2: '',
+    userRol3: '',
     userActive: '',
     editActive: true
   }
@@ -28,8 +30,10 @@ export class AppComponent {
     Lastname: new FormControl('', Validators.required),
     email: new FormControl(null, Validators.required),
     username: new FormControl('', Validators.required),
-    userRol: new FormControl('', Validators.required),
-    userActive: new FormControl('', Validators.required),
+    userRol1: new FormControl(''),
+    userRol2: new FormControl(''),
+    userRol3: new FormControl(''),
+    userActive: new FormControl(''),
 
   });
 
@@ -44,18 +48,17 @@ export class AppComponent {
 
   pushUser() {
 
-
-    // otra manera de manejar las referencias 
     this.db.database.ref('users').push({
       firstName: '',
       Lastname: '',
       email: '',
       username: '',
-      userRol: '',
+      userRol1: '',
+      userRol2: '',
+      userRol3: '',
       userActive: ''
 
     }).then(() => {
-      console.log('User created');
       this.toast('User added successfully');
     }).catch(e => {
       console.log(e);
@@ -66,25 +69,27 @@ export class AppComponent {
 
   updateUser(uid: any) {
 
-    // otra manera de manejar las referencias 
     this.db.database.ref('users/' + uid).update({
       firstName: this.form.value.firstName,
       Lastname: this.form.value.Lastname,
       email: this.form.value.email,
       username: this.form.value.username,
-      userRol: this.form.value.userRol,
+      userRol1: this.form.value.userRol1,
+      userRol2: this.form.value.userRol2,
+      userRol3: this.form.value.userRol3,
       userActive: this.form.value.userActive
 
     }).then(() => {
-      console.log('User Uptated');
-      this.toast('User uptated successfully');
+      this.toast('User '+this.form.value.firstName+ ''+this.form.value.Lastname +' uptated successfully');
       this.form = new FormGroup({
         firstName: new FormControl('', Validators.required),
         Lastname: new FormControl('', Validators.required),
         email: new FormControl(null, Validators.required),
         username: new FormControl('', Validators.required),
-        userRol: new FormControl('', Validators.required),
-        userActive: new FormControl('', Validators.required),
+        userRol1: new FormControl(''),
+        userRol2: new FormControl(''),
+        userRol3: new FormControl(''),
+        userActive: new FormControl(''),
 
       });;
     }).catch(e => {
@@ -95,18 +100,10 @@ export class AppComponent {
 
   }
 
-
-  toast(message){
-    M.toast({html: message, classes: 'rounded'});
-  }
-
-
-
-  removeUser(uid) {
-    console.log("remove");
+  removeUser(uid:any) {
     this.db.object('users/' + uid).remove();
     this.toast('User removed successfully');
-
+  
   }
 
   getUsers() {
@@ -114,68 +111,48 @@ export class AppComponent {
     let refUsers: any;
     refUsers = this.db.object('users');
     refUsers.snapshotChanges().subscribe(action => {
-      // console.log(action.type);
-      // console.log(action.key)
-      console.log('Real time', action.payload.val())
-
       this.users = [];
       for (let key in action.payload.val()) {
         let user = action.payload.val()[key];
         user.key = key;
         this.users.push(user);
       }
-      console.log(this.users);
-
+      this.ListIsLoad = true;
 
 
     });
 
   }
 
-  getUser(uid) {
+  getUser(uid:any) {
 
     let refUsers: any;
     refUsers = this.db.object('users/' + uid);
     refUsers.snapshotChanges().subscribe(action => {
-      // console.log(action.type);
-      // console.log(action.key)
-      console.log('Real time', action.payload.val())
-      console.log(this.form.value);
       let user = action.payload.val();
-
       this.form.controls['firstName'].setValue(user.firstName);
       this.form.controls['Lastname'].setValue(user.Lastname);
       this.form.controls['email'].setValue(user.email);
       this.form.controls['username'].setValue(user.username);
-      this.form.controls['userRol'].setValue(user.userRol);
+      this.form.controls['userRol1'].setValue(user.userRol1);
+      this.form.controls['userRol2'].setValue(user.userRol2);
+      this.form.controls['userRol3'].setValue(user.userRol3);
       this.form.controls['userActive'].setValue(user.userActive);
-
-      
-      
-      
-      
-      
-      
 
     });
 
   }
 
-  closeAll(thisnot) {
+  closeAll(thisnot:any) {
     for (let index = 0; index < this.users.length; index++) {
       if (index != thisnot)
         this.users[index].editActive = false;
     }
   }
 
-  sayHello() {
-    console.log("Hello");
-    this.toast('Hello');
-
+  toast(message:any){
+    M.toast({html: message, classes: 'rounded'});
   }
-
-  // npm install firebase @angular/fire
-
 }
 
 
@@ -186,40 +163,11 @@ export interface User {
   Lastname: string;
   email: string;
   username: string;
-  userRol: string;
+  userRol1: string;
+  userRol2: string;
+  userRol3: string;
   userActive: string;
   editActive: boolean;
   key?: string
 }
 
-
-
-// this.users=[
-//   {
-//     firstName:'Yecksin',
-//     Lastname: 'Zuñiga',
-//     email:'yecksin@gmail.com',
-//     username:'yecksin',
-//     userRol:'',
-//     userActive:'',
-//     editActive: false
-//   },
-//   {
-//     firstName:'Sofia',
-//     Lastname: 'Cruz',
-//     email:'socruz@gmail.com',
-//     username:'socruz',
-//     userRol:'',
-//     userActive:'',
-//     editActive: false
-//   },
-//   {
-//     firstName:'Zeus',
-//     Lastname: 'Guerrero',
-//     email:'zeus@gmail.com',
-//     username:'zeus',
-//     userRol:'',
-//     userActive:'',
-//     editActive: false
-//   }
-// ]

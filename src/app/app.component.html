@@ -1,13 +1,13 @@
 <div class="container-user-list" style="padding:  0 2rem 0 2rem;">
    
 
-    <h2 class="center-align white-text">Users List</h2>
+    <h2 *ngIf="ListIsLoad" class="center-align white-text animate__animated  animate__bounceIn">Users List</h2>
 
-    <ul class="collection z-depth-4 " style="border-radius: 1rem !important;">
+    <ul *ngIf="ListIsLoad" class=" collection z-depth-4 animate__animated  animate__bounceIn" style="border-radius: 1rem !important;">
 
         
 
-        <li class="collection-item " style="padding: 0; " *ngFor="let user of users; let i = index">
+        <li class="collection-item  " style="padding: 0; " *ngFor="let user of users; let i = index">
 
             <a class="waves-effect waves-light blue btn" style="position: absolute; border-radius: 50%  50% 10%  50% ; margin-top: .2rem; margin-left: .2rem;">{{i+1}}</a>
 
@@ -36,8 +36,8 @@
             </div>
 
                 <div *ngIf="user.editActive" class="col s12 animate__animated animate__fadeIn"> 
-                    <a class="waves-effect waves-light btn blue lighten-2" style="margin-top: 2rem ; position: relative; left: 50%; transform: translateX(-50%);" (click)="user.editActive = !user.editActive; ">
-                        <i class="material-icons left">arrow_drop_down</i>minimize</a>
+                    <a class="waves-effect waves-light btn blue lighten-2 poppins" style="margin-top: 2rem ; position: relative; left: 50%; transform: translateX(-50%);" (click)="user.editActive = !user.editActive; ">
+                        <i class="material-icons left ">arrow_drop_down</i>minimize</a>
                     <div class="row" style="margin-top: 2rem;">
                         <h3 class="center-align">{{user.firstName == '' ? form.value.firstName: user.firstName}} {{user.Lastname == '' ? form.value.Lastname: user.Lastname}}</h3>
                         <div style="padding-left: 30%; padding-right: 30%">
@@ -76,21 +76,21 @@
                                         <label class="input-text blue-text">User role(s)</label>
                                         <p style="margin-bottom: 0rem !important; margin-top: 1.2rem;">
                                             <label>
-                                                <input  formControlName='userRol' type="checkbox" />
+                                                <input  formControlName='userRol1' type="checkbox" />
                                                 <span>Administrator</span>
                                             </label>
                                         </p>
     
                                         <p style="margin-bottom: 0rem !important; margin-top: 0rem;">
                                             <label >
-                                                <input formControlName='userRol' type="checkbox" />
+                                                <input formControlName='userRol2' type="checkbox" />
                                                 <span>Member</span>
                                             </label>
                                         </p>
     
                                         <p style="margin-bottom: 0rem !important; margin-top: 0rem;">
                                             <label>
-                                                <input formControlName='userRol' type="checkbox" />
+                                                <input formControlName='userRol3' type="checkbox" />
                                                 <span>Contributor</span>
                                             </label>
                                         </p>
@@ -110,8 +110,8 @@
     
     
                                     <div class="form-group col s12" style="padding-top:2rem;">
-                                        <button style="width: 100%; " class="btn waves-effect waves-light blue" [ngClass]="{'pulse':form.valid}" [disabled]="!form.valid" type="submit" name="action">Update
-                                            <i class="material-icons right">send</i>
+                                        <button style="font-size: 2rem; width: 100%;height: 4rem; border-radius: 2rem 2rem  2rem 2rem;" class="btn waves-effect waves-light blue" [ngClass]="{' animate__animated  animate__bounceIn ':form.valid}" [disabled]="!form.valid" type="submit" name="action">Update
+                                            <i class="material-icons right" style="font-size: 3rem;">sync</i>
                                         </button>
                                     </div>
                                 </div>
@@ -137,12 +137,15 @@
 
     </ul>
 
-    <a (click)="pushUser()" style="
-    border-radius: 0rem 1.5rem 1.5rem 1.5rem;
-    position: relative;
-    left: 100%;
-    transform: translateX(-100%);" class="waves-effect waves-light btn-large white blue-text poppins"><i class="material-icons left">add</i>Add New User</a>
+    <div *ngIf="ListIsLoad" class="animate__animated  animate__bounceIn">
 
+        <a  (click)="pushUser()" style="
+        border-radius: 0rem 1.5rem 1.5rem 1.5rem;
+        position: relative;
+        left: 100%;
+        transform: translateX(-100%);" class="waves-effect waves-light btn-large white blue-text poppins "><i class="material-icons left">add</i>Add New User</a>
+
+    </div>    
 
 
 
