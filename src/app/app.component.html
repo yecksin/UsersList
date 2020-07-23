@@ -3,15 +3,15 @@
 
     <h2 class="center-align">Users List</h2>
 
-    <ul class="collection ">
+    <ul class="collection z-depth-4">
 
         
 
-        <li class="collection-item" style="padding: 0;" *ngFor="let user of users; let i = index">
+        <li class="collection-item " style="padding: 0;" *ngFor="let user of users; let i = index">
 
-            <a class="waves-effect waves-light btn" style="position: absolute;">{{i+1}}</a>
+            <a class="waves-effect waves-light blue btn" style="position: absolute;">{{i+1}}</a>
 
-            <a *ngIf="user.editActive" class="waves-effect waves-light red btn" 
+            <a *ngIf="user.editActive" (click)="removeUser(user.key);" class="waves-effect waves-light red btn" 
             style="
             position: absolute;
             left: 100%;
@@ -24,72 +24,74 @@
             <div class="row" style="margin-bottom: 0 !important; padding-bottom: 0 !important;">
 
                 <div *ngIf="!user.editActive">
+                    
                 <div class="col s9 " style="padding-top: .5rem; padding-bottom: .5rem;">
-                    <p style="margin-left: 3rem; " >{{user.firstName == '' ? 'unnamed': user.firstName }} {{user.Lastname}}</p>
+                    <p style="margin-left: 3rem; " [ngClass]="{'red-text': user.firstName == '' }">{{user.firstName == '' ? 'unnamed': user.firstName }} {{user.Lastname}}</p>
                 </div>
 
                 <div class="col s3" style="padding-top: .5rem; padding-bottom: .5rem;">
-                    <a class="waves-effect waves-light btn btn-center yellow darken-2" (click)="user.editActive = !user.editActive; closeAll(i)"><i
+                    <a class="waves-effect waves-light btn btn-center yellow darken-2 z-depth-3" (click)="user.editActive = !user.editActive; closeAll(i); getUser(user.key)"><i
                             class="material-icons left">edit</i>Edit</a>
                 </div>
             </div>
 
-                <div *ngIf="user.editActive" class="col s12 animate__animated animate__fadeIn">
-                  
+                <div *ngIf="user.editActive" class="col s12 animate__animated animate__fadeIn"> 
+                    <a class="waves-effect waves-light btn blue lighten-2" style="margin-top: 2rem ; position: relative; left: 50%; transform: translateX(-50%);" (click)="user.editActive = !user.editActive; ">
+                        <i class="material-icons left">arrow_drop_down</i>minimize</a>
                     <div class="row" style="margin-top: 2rem;">
-                        <h3 class="center-align">{{user.firstName == '' ? 'unnamed': user.firstName}} {{user.Lastname}}</h3>
+                        <h3 class="center-align">{{user.firstName == '' ? form.value.firstName: user.firstName}} {{user.Lastname == '' ? form.value.Lastname: user.Lastname}}</h3>
                         <div style="padding-left: 30%; padding-right: 30%">
-                            <hr style="border-color: aqua;">
+                            <hr style="border-color: #2196f3">
                         </div>
                         
-                        <form class="col s12">
+                       
 
                             <div class="container">
 
                                 <!-- FORM FORM  FORM FORM  FORM FORM  FORM FORM -->
-                               
+                                <form name="form" [formGroup]="form" (ngSubmit)="form.valid && updateUser(user.key)">
                                 <div class="row">
     
                                     <div class="input-field col s6">
-                                        <input [ngModel]="userAux.firstName" (ngModelChange)="updateUser(i)" name="first_name" id="first_name" type="text" class="validate">
-                                        <label for="first_name">First Name</label>
+                                        <input formControlName='firstName'  name="first_name" id="first_name" type="text" class="validate">
+                                        <label [ngClass]="{'active': user.editActive, '': !user.editActive }" for="first_name">First Name</label>
                                     </div>
     
                                     <div class="input-field col s6">
-                                        <input id="last_name" type="text" class="validate">
-                                        <label for="last_name">Last Name</label>
+                                        <input formControlName='Lastname' id="last_name" type="text" class="validate">
+                                        <label [ngClass]="{'active': user.editActive}" for="last_name">Last Name</label>
                                     </div>
     
                                     <div class="input-field col s6">
-                                        <input id="email" type="email" class="validate">
-                                        <label for="email">Email</label>
+                                        <input formControlName='email' id="email" type="email" class="validate">
+                                        <label [ngClass]="{'active': user.editActive}" for="email">Email</label>
                                     </div>
     
                                     <div class="input-field col s6">
-                                        <input id="username" type="text" class="validate">
-                                        <label for="username">Username</label>
+                                        <input formControlName='username' id="username" type="text" class="validate">
+                                        <label [ngClass]="{'active': user.editActive}" for="username">Username</label>
                                     </div>
     
                                     <div class="col s6">
                                         <label >User role(s)</label>
                                         <p style="margin-bottom: 0rem !important; margin-top: 0rem;">
                                             <label>
-                                                <input type="checkbox" />
-                                                <span>Red</span>
+                                                <input  formControlName='userRol' type="checkbox" />
+                                                <span>Administrator</span>
                                             </label>
                                         </p>
     
                                         <p style="margin-bottom: 0rem !important; margin-top: 0rem;">
                                             <label>
-                                                <input type="checkbox" />
-                                                <span>Red</span>
+                                                <input formControlName='userRol' type="checkbox" />
+                                                <span>Member</span>
                                             </label>
                                         </p>
     
                                         <p style="margin-bottom: 0rem !important; margin-top: 0rem;">
                                             <label>
-                                                <input type="checkbox" />
-                                                <span>Red</span>
+                                                <input formControlName='userRol' type="checkbox" />
+                                                <span>Contributor</span>
                                             </label>
                                         </p>
                                     </div>
@@ -97,9 +99,9 @@
                                     <div class="col s6">
                                         <label >User active(s)</label>
                                         <div class="switch">
-                                            <label>
-                                                Yes
-                                                <input type="checkbox">
+                                            <label >
+                                                Yes   
+                                                <input  formControlName='userActive' type="checkbox">
                                                 <span class="lever"></span>
                                                 No
                                             </label>
@@ -107,13 +109,21 @@
                                     </div>
     
     
-    
+                                    <div class="form-group col s12" style="padding-top:2rem;">
+                                        <button style="width: 100%; " class="btn waves-effect waves-light blue" [ngClass]="{'pulse':form.valid}" [disabled]="!form.valid" type="submit" name="action">Update
+                                            <i class="material-icons right">send</i>
+                                        </button>
+                                    </div>
                                 </div>
+
+
+                            </form>
                             </div>
 
-                        </form>
+                       
                     </div>
-                    <a class="waves-effect waves-light btn " style="position: relative; left: 50%; transform: translateX(-50%);" (click)="user.editActive = !user.editActive">Close</a>
+                    <a class="waves-effect waves-light btn blue lighten-2" style="margin-bottom: 2rem ; position: relative; left: 50%; transform: translateX(-50%);" (click)="user.editActive = !user.editActive; ">
+                        <i class="material-icons left ">arrow_drop_down</i> minimize</a>
                 </div>
 
             </div>
