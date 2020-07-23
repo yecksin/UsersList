@@ -1,93 +1,111 @@
 <div class="container-user-list" style="padding:  0 2rem 0 2rem;">
-   
 
+    <!-- ListIsLoad is for active the animation when the database is load all users -->
     <h2 *ngIf="ListIsLoad" class="center-align white-text animate__animated  animate__bounceIn">Users List</h2>
 
-    <ul *ngIf="ListIsLoad" class=" collection z-depth-4 animate__animated  animate__bounceIn" style="border-radius: 1rem !important;">
+    <!-- list of the users  -->
+    <ul *ngIf="ListIsLoad" class=" collection z-depth-4 animate__animated  animate__bounceIn"
+        style="border-radius: 1rem !important;">
+
 
         
-
+    <!-- ng-for used to list users dynamically -->
         <li class="collection-item  " style="padding: 0; " *ngFor="let user of users; let i = index">
 
-            <a class="waves-effect waves-light blue btn" style="position: absolute; border-radius: 50%  50% 10%  50% ; margin-top: .2rem; margin-left: .2rem;">{{i+1}}</a>
+            <a class="waves-effect waves-light blue btn"
+                style="position: absolute; border-radius: 50%  50% 10%  50% ; margin-top: .2rem; margin-left: .2rem;">{{i+1}}</a>
 
-            <a *ngIf="user.editActive" (click)="userAux.key = user.key; userAux.firstName = user.firstName; userAux.Lastname = user.Lastname" class="waves-effect waves-light red btn modal-trigger" href="#deleteSure" 
-            style="
+            <a *ngIf="user.editActive"
+                (click)="userAux.key = user.key; userAux.firstName = user.firstName; userAux.Lastname = user.Lastname"
+                class="waves-effect waves-light red btn modal-trigger" href="#deleteSure" style="
             position: absolute;
             left: 100%;
             transform: translateX(-100%);
             "><i class="material-icons">delete</i></a>
-            
+
 
 
 
             <div class="row" style="margin-bottom: 0 !important; padding-bottom: 0 !important;">
 
                 <div *ngIf="!user.editActive">
-                    
-                <div class="col s9 " style="padding-top: .5rem; padding-bottom: .5rem;">
-                    <p style="margin-left: 3rem; " [ngClass]="{'red-text': user.firstName == '' }">{{user.firstName == '' ? 'unnamed': user.firstName }} {{user.Lastname}}</p>
+
+                    <div class="col s9 " style="padding-top: .5rem; padding-bottom: .5rem;">
+                        <p style="margin-left: 3rem; " [ngClass]="{'red-text': user.firstName == '' }">
+                            {{user.firstName == '' ? 'unnamed': user.firstName }} {{user.Lastname}}</p>
+                    </div>
+
+                    <div class="col s3" style="padding-top: .5rem; padding-bottom: .5rem;">
+                        <a class="waves-effect waves-light btn btn-center yellow darken-2 z-depth-3 poppins"
+                            (click)="user.editActive = !user.editActive; closeAll(i); getUser(user.key)"><i
+                                class="material-icons left">edit</i>Edit</a>
+                    </div>
                 </div>
 
-                <div class="col s3" style="padding-top: .5rem; padding-bottom: .5rem;">
-                    <a class="waves-effect waves-light btn btn-center yellow darken-2 z-depth-3 poppins" (click)="user.editActive = !user.editActive; closeAll(i); getUser(user.key)"><i
-                            class="material-icons left">edit</i>Edit</a>
-                </div>
-            </div>
-
-                <div *ngIf="user.editActive" class="col s12 animate__animated animate__fadeIn"> 
-                    <a class="waves-effect waves-light btn blue lighten-2 poppins" style="margin-top: 2rem ; position: relative; left: 50%; transform: translateX(-50%);" (click)="user.editActive = !user.editActive; ">
+                <div *ngIf="user.editActive" class="col s12 animate__animated animate__fadeIn">
+                    <a class="waves-effect waves-light btn blue lighten-2 poppins"
+                        style="margin-top: 2rem ; position: relative; left: 50%; transform: translateX(-50%);"
+                        (click)="user.editActive = !user.editActive; ">
                         <i class="material-icons left ">arrow_drop_down</i>minimize</a>
                     <div class="row" style="margin-top: 2rem;">
-                        <h3 class="center-align">{{user.firstName == '' ? form.value.firstName: user.firstName}} {{user.Lastname == '' ? form.value.Lastname: user.Lastname}}</h3>
+                        <h3 class="center-align">{{user.firstName == '' ? form.value.firstName: user.firstName}}
+                            {{user.Lastname == '' ? form.value.Lastname: user.Lastname}}</h3>
                         <div style="padding-left: 30%; padding-right: 30%">
                             <hr style="border-color: #70b9f5">
                         </div>
-                        
-                       
 
-                            <div class="container" style="margin-top: 5rem;">
 
-                                <!-- FORM FORM  FORM FORM  FORM FORM  FORM FORM -->
-                                <form name="form" [formGroup]="form" (ngSubmit)="form.valid && updateUser(user.key)">
+
+                        <div class="container" style="margin-top: 5rem;">
+
+                            <!-- FORM FORM  FORM FORM  FORM FORM  FORM FORM -->
+                            <form name="form" [formGroup]="form" (ngSubmit)="form.valid && updateUser(user.key)">
                                 <div class="row">
-    
+
                                     <div class="input-field col s6 ">
-                                        <input formControlName='firstName'  name="first_name" id="first_name" type="text" class="validate input-text">
-                                        <label [ngClass]="{'active': user.editActive, '': !user.editActive }" class="input-text" for="first_name">First Name</label>
+                                        <input formControlName='firstName' name="first_name" id="first_name" type="text"
+                                            class="validate input-text">
+                                        <label [ngClass]="{'active': user.editActive, '': !user.editActive }"
+                                            class="input-text" for="first_name">First Name</label>
                                     </div>
-    
+
                                     <div class="input-field col s6 ">
-                                        <input formControlName='Lastname' id="last_name" type="text" class="validate input-text">
-                                        <label [ngClass]="{'active': user.editActive}" class="input-text" for="last_name">Last Name</label>
+                                        <input formControlName='Lastname' id="last_name" type="text"
+                                            class="validate input-text">
+                                        <label [ngClass]="{'active': user.editActive}" class="input-text"
+                                            for="last_name">Last Name</label>
                                     </div>
-    
+
                                     <div class="input-field col s6">
-                                        <input formControlName='email' id="email" type="email" class="validate input-text">
-                                        <label [ngClass]="{'active': user.editActive}" class="input-text"  for="email">Email</label>
+                                        <input formControlName='email' id="email" type="email"
+                                            class="validate input-text">
+                                        <label [ngClass]="{'active': user.editActive}" class="input-text"
+                                            for="email">Email</label>
                                     </div>
-    
+
                                     <div class="input-field col s6">
-                                        <input formControlName='username' id="username" type="text" class="validate input-text">
-                                        <label [ngClass]="{'active': user.editActive}" class="input-text"  for="username">Username</label>
+                                        <input formControlName='username' id="username" type="text"
+                                            class="validate input-text">
+                                        <label [ngClass]="{'active': user.editActive}" class="input-text"
+                                            for="username">Username</label>
                                     </div>
-    
+
                                     <div class="col s6">
                                         <label class="input-text blue-text">User role(s)</label>
                                         <p style="margin-bottom: 0rem !important; margin-top: 1.2rem;">
                                             <label>
-                                                <input  formControlName='userRol1' type="checkbox" />
+                                                <input formControlName='userRol1' type="checkbox" />
                                                 <span>Administrator</span>
                                             </label>
                                         </p>
-    
+
                                         <p style="margin-bottom: 0rem !important; margin-top: 0rem;">
-                                            <label >
+                                            <label>
                                                 <input formControlName='userRol2' type="checkbox" />
                                                 <span>Member</span>
                                             </label>
                                         </p>
-    
+
                                         <p style="margin-bottom: 0rem !important; margin-top: 0rem;">
                                             <label>
                                                 <input formControlName='userRol3' type="checkbox" />
@@ -95,81 +113,70 @@
                                             </label>
                                         </p>
                                     </div>
-    
+
                                     <div class="col s6">
-                                        <label class="input-text blue-text" >User active(s)</label>
+                                        <label class="input-text blue-text">User active(s)</label>
                                         <div class="switch" style="margin-top: 1.5rem;">
                                             <label class="poppins-med black-text" style="font-size: 1.5rem;">
-                                                Yes   
-                                                <input  formControlName='userActive' type="checkbox">
+                                                Yes
+                                                <input formControlName='userActive' type="checkbox">
                                                 <span class="lever"></span>
                                                 No
                                             </label>
                                         </div>
                                     </div>
-    
-    
+
+
                                     <div class="form-group col s12" style="padding-top:2rem;">
-                                        <button style="font-size: 2rem; width: 100%;height: 4rem; border-radius: 2rem 2rem  2rem 2rem;" class="btn waves-effect waves-light blue" [ngClass]="{' animate__animated  animate__bounceIn ':form.valid}" [disabled]="!form.valid" type="submit" name="action">Update
+                                        <button
+                                            style="font-size: 2rem; width: 100%;height: 4rem; border-radius: 2rem 2rem  2rem 2rem;"
+                                            class="btn waves-effect waves-light blue"
+                                            [ngClass]="{' animate__animated  animate__bounceIn ':form.valid}"
+                                            [disabled]="!form.valid" type="submit" name="action">Update
                                             <i class="material-icons right" style="font-size: 3rem;">sync</i>
                                         </button>
                                     </div>
                                 </div>
-
-
                             </form>
-                            </div>
-
-                       
+                        </div>
                     </div>
-                    <a class="waves-effect waves-light btn blue lighten-2" style="margin-bottom: 2rem ; position: relative; left: 50%; transform: translateX(-50%);" (click)="user.editActive = !user.editActive; ">
+                    <a class="waves-effect waves-light btn blue lighten-2"
+                        style="margin-bottom: 2rem ; position: relative; left: 50%; transform: translateX(-50%);"
+                        (click)="user.editActive = !user.editActive; ">
                         <i class="material-icons left ">arrow_drop_down</i> minimize</a>
                 </div>
-
             </div>
-            <!-- <a class="waves-effect waves-light btn" style="position: absolute !important;" style="top: 100%;">1</a> -->
-            <!-- <div>
-            <span style="font-size: 2rem;">{{user.firstName}} {{user.Lastname}}</span>  <a  class="waves-effect waves-light btn btn-center" ><i class="material-icons left">edit</i>Edit</a>
-        </div> -->
-            <!-- <h1>Hola</h1> -->
-
         </li>
 
     </ul>
-
+    <!-- button to add user -->
     <div *ngIf="ListIsLoad" class="animate__animated  animate__bounceIn">
-
-        <a  (click)="pushUser()" style="
+        <a (click)="pushUser()" style="
         border-radius: 0rem 1.5rem 1.5rem 1.5rem;
         position: relative;
         left: 100%;
-        transform: translateX(-100%);" class="waves-effect waves-light btn-large white blue-text poppins "><i class="material-icons left">add</i>Add New User</a>
+        transform: translateX(-100%);" class="waves-effect waves-light btn-large white blue-text poppins "><i
+                class="material-icons left">add</i>Add New User</a>
+    </div>
+</div>
 
-    </div>    
-
-
-
-
+<!-- Modal to confirm remove a user-->
+<div id="deleteSure" class="modal">
+    <div class="modal-content">
+        <!-- feedback to guide the users -->
+        <h4 *ngIf="userAux.firstName != '' && userAux.Lastname != '' "> ¿Are you sure to delete the user
+            {{userAux.firstName}} {{userAux.Lastname}}?</h4>
+        <h4 *ngIf="userAux.firstName == '' && userAux.Lastname == '' ">¿Are you sure to delete this unnamed?</h4>
+    </div>
+    <div class="modal-footer">
+        <!-- buttons to confirm to delete the user or cancel the operation. -->
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">
+            close</a>
+        <a (click)="removeUser(userAux.key);" href="#!" class="modal-close waves-effect waves-green btn-flat">
+            I'm sure</a>
+    </div>
 </div>
 
 
-
-
-
-  <!-- Modal Structure -->
-  <div id="deleteSure" class="modal">
-    <div class="modal-content">
-      <h4 *ngIf="userAux.firstName != '' && userAux.Lastname != '' "> ¿Are you sure to delete the user {{userAux.firstName}} {{userAux.Lastname}}?</h4>
-      <h4 *ngIf="userAux.firstName == '' && userAux.Lastname == '' ">¿Are you sure to delete this unnamed?</h4>
-    </div>
-    <div class="modal-footer">
-        <a  href="#!" class="modal-close waves-effect waves-green btn-flat">
-           close</a>
-      <a (click)="removeUser(userAux.key);" href="#!" class="modal-close waves-effect waves-green btn-flat">
-        I'm sure</a>
-    </div>
-  </div>
-
-
-
-  <div style="margin-bottom: 10rem;"></div>
+<!-- used to apply a margin -->
+<div style="margin-bottom: 10rem;"></div>

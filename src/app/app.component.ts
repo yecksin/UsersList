@@ -10,9 +10,11 @@ declare var $:any;
 })
 export class AppComponent {
   title = 'UL';
+  // true when the database load all the users
   ListIsLoad = false;
+  // es para almacenar todos los usuarios en la memoria
   users: User[];
-
+  // used of have a user in memory
   userAux: User = {
     firstName: '',
     Lastname: '',
@@ -24,7 +26,7 @@ export class AppComponent {
     userActive: '',
     editActive: true
   }
-
+  //form
   form = new FormGroup({
     firstName: new FormControl('', Validators.required),
     Lastname: new FormControl('', Validators.required),
@@ -38,14 +40,17 @@ export class AppComponent {
   });
 
   constructor(private db: AngularFireDatabase) {
-    
+  
+  // init modal of materialize
   $(document).ready(function(){
     $('.modal').modal();
   });
-    this.getUsers();
+
+  // get users when de page is load
+  this.getUsers();
 
   }
-
+  // push only one user from the database
   pushUser() {
 
     this.db.database.ref('users').push({
@@ -66,7 +71,7 @@ export class AppComponent {
 
 
   }
-
+  // update only one user from the database
   updateUser(uid: any) {
 
     this.db.database.ref('users/' + uid).update({
@@ -99,13 +104,13 @@ export class AppComponent {
 
 
   }
-
+   // remove only one user from the database
   removeUser(uid:any) {
     this.db.object('users/' + uid).remove();
     this.toast('User removed successfully');
   
   }
-
+  // returns users from the database
   getUsers() {
 
     let refUsers: any;
@@ -123,7 +128,8 @@ export class AppComponent {
     });
 
   }
-
+  
+  // returns only one user from the database
   getUser(uid:any) {
 
     let refUsers: any;
@@ -142,14 +148,15 @@ export class AppComponent {
     });
 
   }
-
+  
+  // used to minimize forms
   closeAll(thisnot:any) {
     for (let index = 0; index < this.users.length; index++) {
       if (index != thisnot)
         this.users[index].editActive = false;
     }
   }
-
+  // is used to give feedback to the user
   toast(message:any){
     M.toast({html: message, classes: 'rounded'});
   }
@@ -157,7 +164,7 @@ export class AppComponent {
 
 
 
-
+// Interface for user 
 export interface User {
   firstName: string;
   Lastname: string;
