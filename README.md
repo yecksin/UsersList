@@ -1,6 +1,10 @@
 # UsersList
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
+This project 
+- Was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
+- It was used Materialize css.
+- It was used Jquety.
+- It was used Animate css
 
 ## Go to the web page
 This [Web Page UsersList](https://userslist-9e729.web.app) is in the firebase hosting and you can go to visit it.
