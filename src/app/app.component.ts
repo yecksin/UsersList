@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 declare var M:any; 
+declare var $:any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,8 +10,9 @@ declare var M:any;
 })
 export class AppComponent {
   title = 'Users List';
-
+  
   users: User[];
+
   userAux: User = {
     firstName: '',
     Lastname: '',
@@ -32,6 +34,10 @@ export class AppComponent {
   });
 
   constructor(private db: AngularFireDatabase) {
+    
+  $(document).ready(function(){
+    $('.modal').modal();
+  });
     this.getUsers();
 
   }
@@ -50,6 +56,7 @@ export class AppComponent {
 
     }).then(() => {
       console.log('User created');
+      this.toast('User added successfully');
     }).catch(e => {
       console.log(e);
     });
@@ -70,6 +77,7 @@ export class AppComponent {
 
     }).then(() => {
       console.log('User Uptated');
+      this.toast('User uptated successfully');
       this.form = new FormGroup({
         firstName: new FormControl('', Validators.required),
         Lastname: new FormControl('', Validators.required),
@@ -97,6 +105,7 @@ export class AppComponent {
   removeUser(uid) {
     console.log("remove");
     this.db.object('users/' + uid).remove();
+    this.toast('User removed successfully');
 
   }
 
@@ -161,6 +170,8 @@ export class AppComponent {
 
   sayHello() {
     console.log("Hello");
+    this.toast('Hello');
+
   }
 
   // npm install firebase @angular/fire

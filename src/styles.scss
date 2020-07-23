@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+
+h1,h2,h3,h4,h5,a .brand-logo, .poppins{
+    font-family: poppins-bold;
+}
+p{
+    font-family: poppins-regular;
+}
+
+.poppins-med{
+    font-family: poppins-Medium;
+}
+
+    @font-face {
+        font-family: poppins-bold;
+        src: url(/assets/poppins/Poppins-Bold.ttf);
+      }
+      @font-face {
+        font-family: poppins-black;
+        src: url(/assets/poppins/Poppins-ExtraBold.ttf);
+      }
+
+      @font-face {
+        font-family: poppins-regular;
+        src: url(/assets/poppins/Poppins-Regular.ttf);
+      }
+
+      
+      @font-face {
+        font-family: poppins-Medium;
+        src: url(/assets/poppins/Poppins-Medium.ttf);
+      }

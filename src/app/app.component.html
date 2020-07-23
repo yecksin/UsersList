@@ -1,17 +1,17 @@
 <div class="container-user-list" style="padding:  0 2rem 0 2rem;">
    
 
-    <h2 class="center-align">Users List</h2>
+    <h2 class="center-align white-text">Users List</h2>
 
-    <ul class="collection z-depth-4">
+    <ul class="collection z-depth-4 " style="border-radius: 1rem !important;">
 
         
 
-        <li class="collection-item " style="padding: 0;" *ngFor="let user of users; let i = index">
+        <li class="collection-item " style="padding: 0; " *ngFor="let user of users; let i = index">
 
-            <a class="waves-effect waves-light blue btn" style="position: absolute;">{{i+1}}</a>
+            <a class="waves-effect waves-light blue btn" style="position: absolute; border-radius: 50%  50% 10%  50% ; margin-top: .2rem; margin-left: .2rem;">{{i+1}}</a>
 
-            <a *ngIf="user.editActive" (click)="removeUser(user.key);" class="waves-effect waves-light red btn" 
+            <a *ngIf="user.editActive" (click)="userAux.key = user.key; userAux.firstName = user.firstName; userAux.Lastname = user.Lastname" class="waves-effect waves-light red btn modal-trigger" href="#deleteSure" 
             style="
             position: absolute;
             left: 100%;
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="col s3" style="padding-top: .5rem; padding-bottom: .5rem;">
-                    <a class="waves-effect waves-light btn btn-center yellow darken-2 z-depth-3" (click)="user.editActive = !user.editActive; closeAll(i); getUser(user.key)"><i
+                    <a class="waves-effect waves-light btn btn-center yellow darken-2 z-depth-3 poppins" (click)="user.editActive = !user.editActive; closeAll(i); getUser(user.key)"><i
                             class="material-icons left">edit</i>Edit</a>
                 </div>
             </div>
@@ -41,40 +41,40 @@
                     <div class="row" style="margin-top: 2rem;">
                         <h3 class="center-align">{{user.firstName == '' ? form.value.firstName: user.firstName}} {{user.Lastname == '' ? form.value.Lastname: user.Lastname}}</h3>
                         <div style="padding-left: 30%; padding-right: 30%">
-                            <hr style="border-color: #2196f3">
+                            <hr style="border-color: #70b9f5">
                         </div>
                         
                        
 
-                            <div class="container">
+                            <div class="container" style="margin-top: 5rem;">
 
                                 <!-- FORM FORM  FORM FORM  FORM FORM  FORM FORM -->
                                 <form name="form" [formGroup]="form" (ngSubmit)="form.valid && updateUser(user.key)">
                                 <div class="row">
     
-                                    <div class="input-field col s6">
-                                        <input formControlName='firstName'  name="first_name" id="first_name" type="text" class="validate">
-                                        <label [ngClass]="{'active': user.editActive, '': !user.editActive }" for="first_name">First Name</label>
+                                    <div class="input-field col s6 ">
+                                        <input formControlName='firstName'  name="first_name" id="first_name" type="text" class="validate input-text">
+                                        <label [ngClass]="{'active': user.editActive, '': !user.editActive }" class="input-text" for="first_name">First Name</label>
+                                    </div>
+    
+                                    <div class="input-field col s6 ">
+                                        <input formControlName='Lastname' id="last_name" type="text" class="validate input-text">
+                                        <label [ngClass]="{'active': user.editActive}" class="input-text" for="last_name">Last Name</label>
                                     </div>
     
                                     <div class="input-field col s6">
-                                        <input formControlName='Lastname' id="last_name" type="text" class="validate">
-                                        <label [ngClass]="{'active': user.editActive}" for="last_name">Last Name</label>
+                                        <input formControlName='email' id="email" type="email" class="validate input-text">
+                                        <label [ngClass]="{'active': user.editActive}" class="input-text"  for="email">Email</label>
                                     </div>
     
                                     <div class="input-field col s6">
-                                        <input formControlName='email' id="email" type="email" class="validate">
-                                        <label [ngClass]="{'active': user.editActive}" for="email">Email</label>
-                                    </div>
-    
-                                    <div class="input-field col s6">
-                                        <input formControlName='username' id="username" type="text" class="validate">
-                                        <label [ngClass]="{'active': user.editActive}" for="username">Username</label>
+                                        <input formControlName='username' id="username" type="text" class="validate input-text">
+                                        <label [ngClass]="{'active': user.editActive}" class="input-text"  for="username">Username</label>
                                     </div>
     
                                     <div class="col s6">
-                                        <label >User role(s)</label>
-                                        <p style="margin-bottom: 0rem !important; margin-top: 0rem;">
+                                        <label class="input-text blue-text">User role(s)</label>
+                                        <p style="margin-bottom: 0rem !important; margin-top: 1.2rem;">
                                             <label>
                                                 <input  formControlName='userRol' type="checkbox" />
                                                 <span>Administrator</span>
@@ -82,7 +82,7 @@
                                         </p>
     
                                         <p style="margin-bottom: 0rem !important; margin-top: 0rem;">
-                                            <label>
+                                            <label >
                                                 <input formControlName='userRol' type="checkbox" />
                                                 <span>Member</span>
                                             </label>
@@ -97,9 +97,9 @@
                                     </div>
     
                                     <div class="col s6">
-                                        <label >User active(s)</label>
-                                        <div class="switch">
-                                            <label >
+                                        <label class="input-text blue-text" >User active(s)</label>
+                                        <div class="switch" style="margin-top: 1.5rem;">
+                                            <label class="poppins-med black-text" style="font-size: 1.5rem;">
                                                 Yes   
                                                 <input  formControlName='userActive' type="checkbox">
                                                 <span class="lever"></span>
@@ -138,12 +138,35 @@
     </ul>
 
     <a (click)="pushUser()" style="
+    border-radius: 0rem 1.5rem 1.5rem 1.5rem;
     position: relative;
     left: 100%;
-    transform: translateX(-100%);" class="waves-effect waves-light btn-large"><i class="material-icons left">add</i>Add New User</a>
+    transform: translateX(-100%);" class="waves-effect waves-light btn-large white blue-text poppins"><i class="material-icons left">add</i>Add New User</a>
 
 
 
 
 
 </div>
+
+
+
+
+
+  <!-- Modal Structure -->
+  <div id="deleteSure" class="modal">
+    <div class="modal-content">
+      <h4 *ngIf="userAux.firstName != '' && userAux.Lastname != '' "> ¿Are you sure to delete the user {{userAux.firstName}} {{userAux.Lastname}}?</h4>
+      <h4 *ngIf="userAux.firstName == '' && userAux.Lastname == '' ">¿Are you sure to delete this unnamed?</h4>
+    </div>
+    <div class="modal-footer">
+        <a  href="#!" class="modal-close waves-effect waves-green btn-flat">
+           close</a>
+      <a (click)="removeUser(userAux.key);" href="#!" class="modal-close waves-effect waves-green btn-flat">
+        I'm sure</a>
+    </div>
+  </div>
+
+
+
+  <div style="margin-bottom: 10rem;"></div>
