@@ -5,6 +5,9 @@
 - It was used Materialize css.
 - It was used Jquety.
 - It was used Animate css
+- [@angular/fire](https://www.npmjs.com/package/@angular/fire)
+- It was used Firebase Realtime Database
+- It was used Firebase Hosting
 
 ## Go to the web page
 This [Web Page UsersList](https://userslist-9e729.web.app) is in the firebase hosting and you can go to visit it.
