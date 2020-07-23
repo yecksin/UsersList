@@ -5,7 +5,7 @@
 - It was used Materialize css.
 - It was used Jquety.
 - It was used Animate css
-- [@angular/fire](https://www.npmjs.com/package/@angular/fire)
+- It was used [@angular/fire](https://www.npmjs.com/package/@angular/fire)
 - It was used Firebase Realtime Database
 - It was used Firebase Hosting
 
