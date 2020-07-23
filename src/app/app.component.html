@@ -161,18 +161,18 @@
 </div>
 
 <!-- Modal to confirm remove a user-->
-<div id="deleteSure" class="modal">
-    <div class="modal-content">
+<div id="deleteSure" class="modal blue">
+    <div class="modal-content blue">
         <!-- feedback to guide the users -->
-        <h4 *ngIf="userAux.firstName != '' && userAux.Lastname != '' "> ¿Are you sure to delete the user
+        <h4 class="white-text" style="text-align: center !important;" *ngIf="userAux.firstName != '' && userAux.Lastname != '' "> ¿Are you sure to delete the user
             {{userAux.firstName}} {{userAux.Lastname}}?</h4>
-        <h4 *ngIf="userAux.firstName == '' && userAux.Lastname == '' ">¿Are you sure to delete this unnamed?</h4>
+        <h4 class="white-text" *ngIf="userAux.firstName == '' && userAux.Lastname == '' ">¿Are you sure to delete this unnamed?</h4>
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer light-blue">
         <!-- buttons to confirm to delete the user or cancel the operation. -->
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">
+        <a href="#!" style="font-size: 1.5rem;" class="modal-close waves-effect waves-green btn-flat poppins white-text">
             close</a>
-        <a (click)="removeUser(userAux.key);" href="#!" class="modal-close waves-effect waves-green btn-flat">
+        <a (click)="removeUser(userAux.key);" style="font-size: 1.5rem;" href="#!" class="modal-close waves-effect waves-green btn-flat poppins red-text lighten-2-text">
             I'm sure</a>
     </div>
 </div>

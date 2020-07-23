@@ -64,6 +64,7 @@ export class AppComponent {
       userActive: ''
 
     }).then(() => {
+      this.users[this.users.length-1].editActive=true;
       this.toast('User added successfully');
     }).catch(e => {
       console.log(e);
