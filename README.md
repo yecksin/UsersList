@@ -11,8 +11,6 @@
 
 ## Go to the web page
 This [Web Page UsersList](https://userslist-9e729.web.app) is in the firebase hosting and you can go to visit it.
-https://userslist-9e729.web.app
-
 
 ## Run locally or development server
 - `Clone` or `download` this project.
@@ -20,6 +18,5 @@ https://userslist-9e729.web.app
 - On the folder root run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Build
-
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 For this run was correct you need a server with https service.
