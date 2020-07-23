@@ -13,10 +13,10 @@ https://userslist-9e729.web.app
 
 ## Run locally or development server
 - `Clone` or `download` this project.
-- On the folder root run `npm install` for install `node_modules` and load dependencies.
+- On the folder root run `npm install` for install `node_modules` and load the dependencies.
 - On the folder root run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-for this run you need a server with https service.
+For this run was correct you need a server with https service.
